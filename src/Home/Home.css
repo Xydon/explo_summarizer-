@@ -1,0 +1,137 @@
+/* animations */
+@keyframes slide {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.header-container {
+  padding-left: 5%;
+  padding-right: 5%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.header-logo {
+  font-size: 18px;
+  font-family: "Playfair Display";
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.header-left {
+  font-size: 16px;
+  font-family: "Poppins";
+  cursor: pointer;
+}
+
+.header-left::after {
+  content: "";
+  display: block;
+  width: 0;
+  animation-name: slide;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  height: 2px;
+  background: black;
+}
+
+.content-section {
+  height: calc(100vh - 60px);
+  width: 100%;
+  padding: 5%;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-heading {
+  width: fit-content;
+  position: relative;
+}
+
+.content-heading .heading-text {
+  font-size: 48px;
+  font-family: "Poppins";
+}
+
+.content-heading .subheading-text {
+  font-size: 12px;
+  font-family: "Poppins";
+}
+
+.content-heading-lower {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.content-heading-underline {
+  flex: 1;
+  margin-right: 12px;
+  width: 75%;
+  height: 6px;
+  background-color: #ffe600;
+}
+
+.content-heading-sub-text {
+  font-size: 12px;
+}
+
+/* input areas */
+
+.box-container {
+  margin-top: 50px;
+  display: flex;
+  width: 100%;
+}
+
+.input-box-container, .display-box {
+  flex: 1;
+  border-radius: 10px;
+  border: 1px solid grey;
+  height: 50vh;
+  margin: 4px;
+  padding: 20px;
+  font-family: "Poppins";
+  position : relative; 
+}
+
+.input-area {
+    outline : none; 
+    width : 100%; 
+    height : 100%; 
+    border : transparent;
+    font-family : 'Poppins'; 
+    resize : none; 
+}
+
+.input-area::-webkit-scrollbar {
+    width : 2px; 
+}
+
+.submit-btn { 
+    position : absolute; 
+    bottom : 20px; 
+    right : 20px; 
+    font-family : 'Poppins'; 
+    font-size : 14px; 
+    padding : 10px 16px; 
+    border : 0.5px solid transparent; 
+    border-radius: 10px;
+    transition : all 0.5s ease-in-out; 
+    cursor : pointer; 
+}
+
+.submit-btn:hover {
+    border : 0.5px solid #0038ff; 
+}
