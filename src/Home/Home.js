@@ -11,10 +11,23 @@ function WriteText(displayText, text, indx, target) {
   }, 100);
 }
 
+async function PostText(text, type) {
+  let dataToSend = JSON.stringify({ text });
+  console.log(dataToSend);
+  let data = await fetch(`http://localhost:5000/api/summarize/${type ? 'True' : 'False'}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: dataToSend,
+  });
+  data = await data.json();
+  return data.data;
+}
+
 function Home() {
   const HeadingRef = React.createRef(null);
-  const [show, setShow] = useState(false);
-
+  const [text, setText] = useState("");
+  const [summary, setSummary] = useState("");
+  const [sumType, setSumType] = useState(true); 
   useEffect(() => {
     WriteText("", "Text Summarizer", 0, HeadingRef);
   }, []);
@@ -38,10 +51,42 @@ function Home() {
 
         <div className="box-container">
           <div className="input-box-container">
-            <textarea className="input-area" placeholder="enter your text" ></textarea>
-            <p className='submit-btn' >summarize</p>
+            <textarea
+              className="input-area"
+              placeholder="enter your text"
+              value={text}
+              onChange={(t) => setText(t.target.value)}
+            ></textarea>
+            <div className="bottom-ribbon">
+              <p
+                className="submit-btn"
+                onClick={() => {
+                  setSummary("-1");
+                  PostText(text, sumType).then((data) => setSummary(data));
+                }}
+              >
+                summarize
+              </p>
+              <p className={`summary-option ${sumType ? 'focus-option' : ''}`} onClick={() => {
+                setSumType(true); 
+              }}>tf-idf</p>
+              <p className={`summary-option ${!sumType ? 'focus-option' : ''}`} onClick={() => {
+                setSumType(false); 
+              }}>pagerank</p>
+            </div>
           </div>
-          <div className="display-box"></div>
+          <div
+            className={`display-box ${
+              summary === "-1" ? "display-box-modif" : ""
+            }`}
+          >
+            {summary == "-1" ? (
+              <img src={require("./loader.png")} id="loader" />
+            ) : (
+              summary
+            )}
+            {/* <img src={require("./loader.png")} id="loader"/> */}
+          </div>
         </div>
       </div>
     </div>
